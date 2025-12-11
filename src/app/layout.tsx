@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Orbitron, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ClickBurst } from "@/components/ui/click-burst";
+import { CustomCursor } from "@/components/ui/custom-cursor";
+import { ClashBackground } from "@/components/ui/clash-background";
 
-const inter = Inter({ subsets: ["latin"] });
+const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
-    title: "AI Skills Showcase",
-    description: "Interactive AI/ML Demos showcasing technical skills.",
+    title: "AI Power Suite",
+    description: "High-performance AI tools for text analysis and generation.",
 };
 
 export default function RootLayout({
@@ -17,14 +21,24 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
-            <body className={cn(inter.className, "antialiased bg-background text-foreground min-h-screen")}>
-                <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                    <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-                        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-                            AI Skills Showcase
-                        </p>
+            <body className={cn(jetbrains.variable, orbitron.variable, "antialiased bg-[#020204] text-white min-h-screen font-mono selection:bg-orange-500/30 selection:text-orange-200")}>
+                <ClashBackground />
+                <CustomCursor />
+                <ClickBurst />
+                <main className="flex min-h-screen flex-col items-center">
+                    {/* Header */}
+                    <div className="z-50 w-full max-w-7xl items-center justify-between py-6 px-6 flex border-b border-white/5 bg-black/50 backdrop-blur-xl fixed top-0 left-0 right-0 mx-auto">
+                        <div className="font-orbitron text-lg font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 drop-shadow-[0_0_10px_rgba(234,88,12,0.5)]">
+                            SAAGNIK_AI
+                        </div>
+                        <nav className="text-xs font-bold tracking-widest text-zinc-500 space-x-6 uppercase">
+                            <a href="/" className="hover:text-cyan-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">System</a>
+                            <a href="https://github.com/Saagnik-Mondal/NLP-Project" target="_blank" className="hover:text-cyan-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">Source_Code</a>
+                        </nav>
                     </div>
-                    {children}
+                    <div className="pt-24 w-full flex flex-col items-center">
+                        {children}
+                    </div>
                 </main>
             </body>
         </html>

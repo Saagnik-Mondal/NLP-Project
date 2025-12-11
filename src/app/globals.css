@@ -22,64 +22,43 @@
   --color-ring: var(--ring);
   --radius: var(--radius);
 
-  --animate-blob: blob 7s infinite;
-
-  @keyframes blob {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-    }
-
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-  }
+  --font-mono: var(--font-jetbrains);
+  --font-orbitron: var(--font-orbitron);
 }
 
 :root {
-  --background: hsl(240 10% 3.9%);
-  --foreground: hsl(0 0% 98%);
+  /* Void & Plasma Theme */
+  --background: #020204;
+  --foreground: #ffffff;
 
-  --card: hsl(240 10% 3.9%);
-  --card-foreground: hsl(0 0% 98%);
+  --card: #0a0a0c;
+  --card-foreground: #ffffff;
 
-  --popover: hsl(240 10% 3.9%);
-  --popover-foreground: hsl(0 0% 98%);
+  --popover: #0a0a0c;
+  --popover-foreground: #ffffff;
 
-  --primary: hsl(263.4 70% 50.4%);
-  --primary-foreground: hsl(210 40% 98%);
+  --primary: #FF4500;
+  /* Charizard Red-Orange */
+  --primary-foreground: #ffffff;
 
-  --secondary: hsl(240 3.7% 15.9%);
-  --secondary-foreground: hsl(0 0% 98%);
+  --secondary: #00E5FF;
+  /* Lucario Cyan */
+  --secondary-foreground: #000000;
 
-  --muted: hsl(240 3.7% 15.9%);
-  --muted-foreground: hsl(240 5% 64.9%);
+  --muted: #1a1a1e;
+  --muted-foreground: #a1a1aa;
 
-  --accent: hsl(240 3.7% 15.9%);
-  --accent-foreground: hsl(0 0% 98%);
+  --accent: #2a2a30;
+  --accent-foreground: #ffffff;
 
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(0 0% 98%);
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
 
-  --border: hsl(240 3.7% 15.9%);
-  --input: hsl(240 3.7% 15.9%);
-  --ring: hsl(240 4.9% 83.9%);
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #FF4500;
 
-  --radius: 0.75rem;
-}
-
-/* Force dark mode by default since we designed for it */
-@media (prefers-color-scheme: light) {
-  :root {
-    /* Optional: Light mode overrides if needed, but we keep dark for now as 'premium' default */
-  }
+  --radius: 0.25rem;
 }
 
 @layer base {
@@ -88,9 +67,43 @@
   ::after,
   ::before {
     @apply border-border;
+    cursor: none !important;
+    /* Hide default cursor for custom one */
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-jetbrains), monospace;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-orbitron), sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-glow-orange {
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.7), 0 0 20px rgba(255, 69, 0, 0.5);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.7), 0 0 20px rgba(0, 229, 255, 0.5);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.7), 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  .box-glow-orange {
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.2), inset 0 0 10px rgba(255, 69, 0, 0.1);
+  }
+
+  .box-glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2), inset 0 0 10px rgba(0, 229, 255, 0.1);
   }
 }

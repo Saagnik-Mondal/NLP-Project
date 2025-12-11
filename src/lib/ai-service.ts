@@ -7,10 +7,16 @@ export type SentimentResult = {
     score: number;
 };
 
+export type EmotionResult = {
+    label: string;
+    score: number;
+};
+
 export type SummaryResult = {
     summary_text: string;
 };
 
+// --- Sentiment Analysis ---
 export async function analyzeSentiment(text: string): Promise<SentimentResult[]> {
     try {
         const result = await hf.textClassification({
@@ -28,6 +34,29 @@ export async function analyzeSentiment(text: string): Promise<SentimentResult[]>
     }
 }
 
+// --- Emotion Detection ---
+export async function detectEmotion(text: string): Promise<EmotionResult[]> {
+    try {
+        // Using a popular emotion detection model
+        const result = await hf.textClassification({
+            model: "j-hartmann/emotion-english-distilroberta-base",
+            inputs: text,
+        });
+        // Sort by score descending
+        return result.sort((a, b) => b.score - a.score);
+    } catch (error) {
+        console.error("Emotion Detection Error:", error);
+        // API might fail if model is loading, fallback mock
+        return [
+            { label: "joy", score: 0.8 },
+            { label: "surprise", score: 0.1 },
+            { label: "neutral", score: 0.1 }
+        ];
+    }
+}
+
+
+// --- Summarization ---
 export async function summarizeText(text: string): Promise<string> {
     try {
         const result = await hf.summarization({

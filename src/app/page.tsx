@@ -1,89 +1,117 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, Brain, ImageIcon, MessageSquare, Sparkles } from "lucide-react";
+import { ArrowRight, Brain, FileText, Smile, Flame, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ElementalCard } from "@/components/ui/elemental-card";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
-    const demos = [
+    const fighters = [
         {
-            title: "NLP Suite",
-            description: "Analyze sentiment and summarize text using state-of-the-art Hugging Face models.",
-            icon: <Brain className="h-10 w-10 text-primary" />,
-            href: "/demos/nlp",
-            cta: "Try Analysis",
-            active: true,
+            title: "Sentiment Analysis",
+            description: "Detect positive or negative tone in text with high precision.",
+            href: "/demos/nlp?tab=sentiment",
+            icon: <Flame className="w-8 h-8 text-orange-500" />,
+            element: "fire" as const,
         },
         {
-            title: "Image Classifier",
-            description: "Real-time image classification using TensorFlow/Keras CNNs. (Coming Soon)",
-            icon: <ImageIcon className="h-10 w-10 text-muted-foreground" />,
-            href: "#",
-            cta: "Coming Soon",
-            active: false,
+            title: "Emotion Detection",
+            description: "Identify subtle emotions like Joy, Anger, and Sorrow in any text.",
+            href: "/demos/nlp?tab=emotion",
+            icon: <Zap className="w-8 h-8 text-cyan-400" />,
+            element: "aura" as const,
         },
         {
-            title: "Smart Chatbot",
-            description: "Conversational AI powered by RASA/LLM integrations. (Coming Soon)",
-            icon: <MessageSquare className="h-10 w-10 text-muted-foreground" />,
-            href: "#",
-            cta: "Coming Soon",
-            active: false,
+            title: "Text Summarizer",
+            description: "Condense long articles into concise, meaningful summaries.",
+            href: "/demos/nlp?tab=summary",
+            icon: <Shield className="w-8 h-8 text-blue-400" />,
+            element: "steel" as const,
         },
     ];
 
     return (
-        <div className="flex flex-col items-center w-full max-w-6xl">
-            <section className="flex flex-col items-center text-center space-y-6 py-24 md:py-32">
-                <div className="inline-flex items-center rounded-lg bg-stone-100 px-3 py-1 text-sm font-medium dark:bg-stone-800">
-                    <Sparkles className="mr-2 h-4 w-4 fill-yellow-500 text-yellow-500" />
-                    <span>AI Project Portfolio</span>
-                </div>
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-400">
-                    AI/ML <br className="hidden sm:inline" />
-                    <span className="text-primary">Skills Demo</span>
-                </h1>
-                <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                    A collection of my experiments with Natural Language Processing and Computer Vision.
-                </p>
-                <div className="flex gap-4">
-                    <Button size="lg" asChild>
-                        <Link href="/demos/nlp">
-                            Try It Out <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
-                    <Button variant="outline" size="lg" asChild>
-                        <Link href="https://github.com/Saagnik-Mondal/NLP-Project" target="_blank">
-                            Source Code
-                        </Link>
-                    </Button>
-                </div>
-            </section>
+        <div className="w-full flex-grow flex flex-col items-center justify-center relative overflow-hidden">
 
-            <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 w-full px-4">
-                {demos.map((demo, index) => (
-                    <Card key={index} className={cn("transition-all hover:scale-105", !demo.active && "opacity-60 grayscale-[0.5]")}>
-                        <CardHeader>
-                            <div className="mb-4">{demo.icon}</div>
-                            <CardTitle className="text-xl">{demo.title}</CardTitle>
-                            <CardDescription>{demo.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                        </CardContent>
-                        <CardFooter>
-                            <Button asChild={demo.active} variant={demo.active ? "default" : "secondary"} className="w-full" disabled={!demo.active}>
-                                {demo.active ? (
-                                    <Link href={demo.href}>
-                                        {demo.cta} <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Link>
-                                ) : (
-                                    demo.cta
-                                )}
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                ))}
-            </section>
+            {/* Background Energy Field */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
+                <div className="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDelay: '1s' }} />
+            </div>
+
+            <div className="z-10 w-full max-w-6xl px-4 py-12 md:py-24 space-y-20">
+
+                {/* Title Section */}
+                <div className="text-center space-y-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 2 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, type: 'spring' }}
+                        className="inline-block"
+                    >
+                        <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-500 drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                            UNLEASH
+                            <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-red-500 to-purple-600 text-glow-orange">
+                                INTELLECT
+                            </span>
+                        </h1>
+                    </motion.div>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-zinc-400 max-w-2xl mx-auto text-lg md:text-xl font-mono uppercase tracking-widest"
+                    >
+                        Select your fighter from the Neural Network Registry.
+                    </motion.p>
+                </div>
+
+                {/* Character Select Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {fighters.map((fighter, index) => (
+                        <Link href={fighter.href} key={index} className="block h-full">
+                            <motion.div
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 + (index * 0.1) }}
+                                className="h-full"
+                            >
+                                <ElementalCard element={fighter.element} className="h-full min-h-[300px]">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                                            {fighter.icon}
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-auto space-y-4">
+                                        <h2 className={cn(
+                                            "text-3xl font-black italic tracking-wide uppercase",
+                                            fighter.element === 'fire' ? 'text-orange-500' :
+                                                fighter.element === 'aura' ? 'text-cyan-400' : 'text-blue-400'
+                                        )}>
+                                            {fighter.title}
+                                        </h2>
+                                        <div className="h-1 w-12 bg-white/20" />
+                                        <p className="text-zinc-400 font-mono text-sm leading-relaxed">
+                                            {fighter.description}
+                                        </p>
+
+                                        <div className="pt-6 flex justify-end items-center mt-4">
+                                            <span className="group-hover:translate-x-2 transition-transform duration-300">
+                                                <ArrowRight className="w-5 h-5 opacity-60 group-hover:opacity-100 group-hover:text-white" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </ElementalCard>
+                            </motion.div>
+                        </Link>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
