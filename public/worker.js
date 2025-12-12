@@ -1,5 +1,5 @@
 
-import { pipeline, env } from "@xenova/transformers";
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
 
 // Skip local model checks since we are running in browser
 env.allowLocalModels = false;
@@ -33,15 +33,21 @@ class PipelineSingleton {
 }
 
 self.addEventListener('message', async (event) => {
-    const { task, text } = event.data;
+    // Check if we have data (some browsers use event.data directly, others nest it)
+    const { task, text, id } = event.data;
 
     try {
         let result;
         switch (task) {
             case 'sentiment':
                 const sentPipe = await PipelineSingleton.getSentimentPipeline();
-                const sentRes = await sentPipe(text);
-                // Process result
+                // returns [{'label': 'POSITIVE', 'score': 0.99...}]
+                let sentRes = await sentPipe(text);
+                
+                // Process result to match desired format: [{label, score}, {label, score}]
+                // The model usually returns one top label. We manually construct the other.
+                if (!Array.isArray(sentRes)) sentRes = [sentRes];
+                
                 const top = sentRes[0];
                 const isPos = top.label === 'POSITIVE';
                 result = [
@@ -52,6 +58,7 @@ self.addEventListener('message', async (event) => {
 
             case 'emotion':
                 const emoPipe = await PipelineSingleton.getEmotionPipeline();
+                // top_k: 5
                 const emoRes = await emoPipe(text, { top_k: 5 });
                 result = emoRes;
                 break;
@@ -59,6 +66,7 @@ self.addEventListener('message', async (event) => {
             case 'summary':
                 const sumPipe = await PipelineSingleton.getSummaryPipeline();
                 const sumRes = await sumPipe(text);
+                // returns [{'summary_text': '...'}]
                 result = sumRes[0].summary_text;
                 break;
 
@@ -66,8 +74,8 @@ self.addEventListener('message', async (event) => {
                 throw new Error(`Unknown task: ${task}`);
         }
 
-        self.postMessage({ status: 'complete', result });
+        self.postMessage({ status: 'complete', result, id });
     } catch (error) {
-        self.postMessage({ status: 'error', error: error.message });
+        self.postMessage({ status: 'error', error: error.message, id });
     }
 });
