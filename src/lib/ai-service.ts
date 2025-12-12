@@ -1,7 +1,5 @@
-import { HfInference } from "@huggingface/inference";
 
-const hf = new HfInference(process.env.NEXT_PUBLIC_HF_TOKEN);
-
+// --- Helper Types ---
 export type SentimentResult = {
     label: string;
     score: number;
@@ -12,63 +10,40 @@ export type EmotionResult = {
     score: number;
 };
 
-export type SummaryResult = {
-    summary_text: string;
-};
 
-// --- Sentiment Analysis ---
+
+// --- API Configuration ---
+const API_URL = "http://localhost:8000";
+
+// --- AI Functions ---
+
 export async function analyzeSentiment(text: string): Promise<SentimentResult[]> {
-    try {
-        const result = await hf.textClassification({
-            model: "distilbert-base-uncased-finetuned-sst-2-english",
-            inputs: text,
-        });
-        return result;
-    } catch (error) {
-        console.error("Sentiment Analysis Error:", error);
-        // Return mock data for development
-        return [
-            { label: "POSITIVE", score: 0.95 },
-            { label: "NEGATIVE", score: 0.05 }
-        ].sort((a, b) => b.score - a.score);
-    }
+    const res = await fetch(`${API_URL}/analyze/sentiment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error("Failed to analyze sentiment");
+    return res.json();
 }
 
-// --- Emotion Detection ---
 export async function detectEmotion(text: string): Promise<EmotionResult[]> {
-    try {
-        // Using a popular emotion detection model
-        const result = await hf.textClassification({
-            model: "j-hartmann/emotion-english-distilroberta-base",
-            inputs: text,
-        });
-        // Sort by score descending
-        return result.sort((a, b) => b.score - a.score);
-    } catch (error) {
-        console.error("Emotion Detection Error:", error);
-        // API might fail if model is loading, fallback mock
-        return [
-            { label: "joy", score: 0.8 },
-            { label: "surprise", score: 0.1 },
-            { label: "neutral", score: 0.1 }
-        ];
-    }
+    const res = await fetch(`${API_URL}/analyze/emotion`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error("Failed to detect emotion");
+    return res.json();
 }
 
-
-// --- Summarization ---
 export async function summarizeText(text: string): Promise<string> {
-    try {
-        const result = await hf.summarization({
-            model: "facebook/bart-large-cnn",
-            inputs: text,
-            parameters: {
-                max_length: 100,
-            }
-        });
-        return result.summary_text;
-    } catch (error) {
-        console.error("Summarization Error:", error);
-        return "Error generating summary. Please try again or check API limits.";
-    }
+    const res = await fetch(`${API_URL}/analyze/summary`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error("Failed to summarize text");
+    const data = await res.json();
+    return data.summary_text;
 }

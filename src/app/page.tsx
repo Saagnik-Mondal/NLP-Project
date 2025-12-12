@@ -66,7 +66,7 @@ export default function Home() {
                         transition={{ delay: 0.3 }}
                         className="text-zinc-400 max-w-2xl mx-auto text-lg md:text-xl font-mono uppercase tracking-widest"
                     >
-                        Select your fighter from the Neural Network Registry.
+                        Select a neural module from the registry
                     </motion.p>
                 </div>
 

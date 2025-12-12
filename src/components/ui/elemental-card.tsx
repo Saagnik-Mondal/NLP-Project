@@ -45,11 +45,12 @@ export const ElementalCard = ({ children, element, className, onClick }: Element
 
     return (
         <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            transition={{ duration: 0.15 }}
             onClick={onClick}
             className={cn(
-                "relative group rounded-xl border-2 overflow-hidden cursor-pointer backdrop-blur-sm transition-all duration-300",
+                "relative group rounded-xl border-2 overflow-hidden cursor-pointer transition-all duration-150",
                 config.border,
                 config.bg,
                 config.glow,
@@ -57,10 +58,10 @@ export const ElementalCard = ({ children, element, className, onClick }: Element
             )}
         >
             {/* Ambient Pulse Background */}
-            <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-t", config.gradient)} />
+            <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-150 bg-gradient-to-t", config.gradient)} />
 
             {/* Scanning Line Effect */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-white/50 opacity-0 group-hover:opacity-100 animate-[scan_2s_linear_infinite]" />
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-white/50 opacity-0 group-hover:opacity-100 animate-[scan_1s_linear_infinite]" />
 
             {/* Corner Markers (Tech Look) */}
             <div className={cn("absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2", config.textAccent)} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Orbitron, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -28,11 +29,10 @@ export default function RootLayout({
                 <main className="flex min-h-screen flex-col items-center">
                     {/* Header */}
                     <div className="z-50 w-full max-w-7xl items-center justify-between py-6 px-6 flex border-b border-white/5 bg-black/50 backdrop-blur-xl fixed top-0 left-0 right-0 mx-auto">
-                        <div className="font-orbitron text-lg font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 drop-shadow-[0_0_10px_rgba(234,88,12,0.5)]">
+                        <Link href="/" className="font-orbitron text-lg font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 drop-shadow-[0_0_10px_rgba(234,88,12,0.5)] hover:opacity-80 transition-opacity">
                             SAAGNIK_AI
-                        </div>
+                        </Link>
                         <nav className="text-xs font-bold tracking-widest text-zinc-500 space-x-6 uppercase">
-                            <a href="/" className="hover:text-cyan-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">System</a>
                             <a href="https://github.com/Saagnik-Mondal/NLP-Project" target="_blank" className="hover:text-cyan-400 transition-colors hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">Source_Code</a>
                         </nav>
                     </div>
