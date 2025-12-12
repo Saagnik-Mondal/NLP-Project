@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NLP Power Suite
 
-## Getting Started
+A high-performance AI showcase featuring advanced NLP capabilities powered by a Python backend and a modern Next.js frontend.
 
-First, run the development server:
+## 🚀 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Check out the live application here: [**NLP Power Suite Live**](https://nlp-project-nu.vercel.app)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Sentiment Analysis**: Detect positive, negative, and neutral tones with precision.
+- **Emotion Detection**: Identify subtle emotions like Joy, Anger, Sorrow, and more.
+- **Text Summarizer**: Condense long articles into concise summaries.
+- **Modern UI**: Built with a "Clash of Clans" inspired aesthetic using Tailwind CSS and Framer Motion.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS, Lucide React, Framer Motion.
+- **Backend**: Python, FastAPI, Transformers (Hugging Face), Torch.
 
-To learn more about Next.js, take a look at the following resources:
+## 💻 Local Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Saagnik-Mondal/NLP-Project.git
+   cd NLP-Project
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Frontend Setup**
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-## Deploy on Vercel
+3. **Backend Setup**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   uvicorn main:app --reload
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Access the App**
+   Open [http://localhost:3000](http://localhost:3000) for the frontend and [http://localhost:8000](http://localhost:8000) for the API.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
